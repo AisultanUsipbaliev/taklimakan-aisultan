@@ -3,8 +3,8 @@
     <popup v-bind:card="card" v-if="showPopup" v-on:closePopup="closePopup" v-on:delete:data="deleteCard"></popup>
     <div v-show="enableDrag" class="dad-container">
       <div class="dad-container__cloumn" v-for="(cardIndex, index) in cards" :key="index" >
-        <div class="dad-container__row" :draggable="enableDrag" v-for="card in cardIndex" :key="card.id" v-on:dragstart="dragstart($event)" v-on:dragend="dragend($event)">
-          <div class="card" @click="showData(card)">
+        <div class="dad-container__row" :draggable="enableDrag" v-for="card in cardIndex" :key="card.id" v-on:dragstart="dragstart($event)" v-on:dragend="dragend($event)" @click="showData(card)">
+          <div class="card">
             <div class="card__block">
               <div class="card__title">{{card.title}}</div>
               <div class="card__description">{{card.description}}</div>
@@ -15,8 +15,8 @@
     </div>
     <div v-show="!enableDrag" class="unselectable-container">
       <div class="unselectable-container__cloumn" v-for="(cardIndex, index) in cards" :key="index">
-        <div class="unselectable-container__row" v-for="card in cardIndex" :key="card.id">
-          <div class="card" @click="showData(card)">
+        <div class="unselectable-container__row" v-for="card in cardIndex" :key="card.id" @click="showData(card)">
+          <div class="card">
             <div class="card__block">
               <div class="card__title">{{card.title}}</div>
               <div class="card__description">{{card.description}}</div>
@@ -168,6 +168,8 @@ export default {
   display: flex;
   width: 100%;
   height: 100%;
+  user-drag: none;
+  user-select: none;
 }
 %column {
   flex: 1;
@@ -175,6 +177,8 @@ export default {
   width: 272px;
   min-width: 272px;
   padding: 15px;
+  user-drag: none;
+  user-select: none;
 }
 %row {
   margin: 15px;
@@ -182,6 +186,8 @@ export default {
   border: 1px solid #eceef0;
   border-radius: 10px;
   cursor: pointer;
+  user-drag: none;
+  user-select: none;
 }
 .dad-container {
   @extend %container;
@@ -203,8 +209,6 @@ export default {
     user-select: none;
     .unselectable-container__row {
       @extend %row;
-      user-drag: none;
-      user-select: none;
       .card {
         border-left: 5px solid #dadada;
       }
@@ -223,8 +227,14 @@ export default {
   padding: 15px;
   margin: 10px;
   border-left: 5px solid transparent;
+  user-drag: none;
+  user-select: none;
+  pointer-events: none;
   .card__block {
     height: 90px;
+    user-drag: none;
+    user-select: none;
+    pointer-events: none;
     .card__title {
       display:inline-block;
       width: 100%;
@@ -235,6 +245,9 @@ export default {
       overflow:hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      user-drag: none;
+      user-select: none;
+      pointer-events: none;
     }
     .card__description {
       display: -webkit-box;
@@ -245,6 +258,9 @@ export default {
       color: #7b838e;
       line-height: 20px;
       font-size: 16px;
+      user-drag: none;
+      user-select: none;
+      pointer-events: none;
     }
   }
 }
